@@ -1,0 +1,84 @@
+<title> Review & Rating </title>
+{{ template "templates/layouts/header.html" .}}
+<form action="ratingsave?id={{ .PID }}" method="POST">
+    <div class="page-wrapper">
+
+      <div class="rat-rev-wrap">
+
+        <div class="rrw-top"> Ratings & Reviews </div>
+
+        <div class="flex rrw-row">
+            <div class="rrw-left">
+            {{ range .product }}
+                <img src="{{ .Imagepath }}">
+                <h3>{{ .Title }}</h3>
+                <div class="flex rev-row">
+                  {{ range .Overallrating }} <input type="hidden" value="{{.}}"> <i class="fas fa-star active"></i>{{end}}
+                   {{range .Remain }} <input type="hidden" value="{{ . }}"> <i class="fas fa-star"></i>{{end}}
+                    <p>({{ .Reviewcount }} Reviews)</p>
+                </div>
+                {{end}}
+            </div>
+            <!-- lft -->
+          
+            <div class="rrw-rht">
+                <div class="rrw-rate">
+                    <h3>Rate this Product</h3>
+
+                   {{if .update }}
+                    <div class="flex rev-row"> 
+                    {{range .update }}
+                      <div class="rate" id="remove" onclick="removeclass()">
+                      
+                        {{ range .Updaterem }} <input type="radio" onclick="Star'{{.}}'()"  id="star{{ . }}" name="rate" value="{{ . }}" />
+                        <label for="star{{ . }}" title="text">4 stars</label>{{end}}
+
+                        {{ range .Updaterate }}<input type="radio" onclick="Star{{.}}()" id="star{{ . }}"  name="rate" value="{{ . }}" />
+                        <label for="star{{ . }}" class="viewstar"  title="text">5 stars</label>{{end}}
+                      </div>
+                      {{ end }}
+                      <p class="comment"></p>
+                    </div>
+
+                 {{ else }}
+                    
+                     <div class="flex rev-row"> 
+                      <div class="rate">
+                        <input type="radio" onclick="Star5()" class="Starrate" id="star5" name="rate" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" onclick="Star4()" class="Starrate" id="star4" name="rate" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" onclick="Star3()" class="Starrate" id="star3" name="rate" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" onclick="Star2()" class="Starrate" id="star2" name="rate" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" onclick="Star1()" class="Starrate" id="star1" name="rate" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                      </div>
+                        
+                        <p class="comment"></p>
+                    </div>
+                    {{end}}
+                    {{/* <i class="fas fa-star active"></i>
+                        <i class="fas fa-star active"></i>
+                        <i class="fas fa-star active"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> */}}
+                </div>
+                <div class="rrw-rate">
+                    <h3>Review this Product</h3>
+                    <textarea rows="5" id="Review" name="review" >{{range .update }}{{ .Review }}{{end}}</textarea>
+                </div>
+                <div class="flex rrw-btn">
+                    <button id="btn_Rating">Submit</button>
+                </div>
+              </div>
+            </div>
+          
+      </div>
+      
+    </div>
+</form>
+
+      {{ template "templates/layouts/footer.html" .}}
+

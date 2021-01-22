@@ -1,0 +1,49 @@
+<title> Products </title>
+{{ template "templates/layouts/header.html" .}}
+    <div class="page-wrapper">
+
+      <div class="box-wrapper">
+
+        <div class="breadcrumbs">
+          <ul class="flex">
+            <li><a href="javascript:void(0)">Home</a></li>
+            {{/* <li>></li> */}}
+            {{/* <li><a href="javascript:void(0)">Home & Furnitures</a></li> */}}
+            <li>></li>
+            <li><a href="javascript:void(0)">Products</a></li>
+           
+          </ul>
+        </div>
+{{ range .index }}
+        <div class="flex product-list-row">
+          <div class="pl-img"> <img src="{{ .Imagepath }}"> </div>
+          <div class="pl-content">
+            <h3><a href="productdetail?id={{ .Randomid }}">{{ .Title }}</a></h3>
+            <div class="flex rev-row">
+              {{range .Overallrating}} <input type="hidden" value="{{ . }}"><i class="fas fa-star active"></i>{{end}}
+             
+              {{range .Remain }} <input type="hidden" value="{{ . }}"><i class="fas fa-star"></i>{{end}}
+           
+              <p>({{ .Reviewcount }} Reviews)</p>
+            </div>
+            <h2>₹{{ .Price }}</h2>
+            <ul class="prd-dtl">
+              <li>Filling Material: Foam</li>
+              <li>Frame Material: Solid Wood</li>
+              <li>DIY - Basic assembly to be done with simple tools by the customer, comes with instructions.</li>
+              <li>This sofa set is a clear all-rounder</li>
+            </ul>
+           
+          </div>
+        </div>
+        {{ end }}
+        <!-- row -->
+
+       
+
+      </div>
+      
+    </div>
+{{ template "templates/layouts/footer.html" .}}
+
+ 

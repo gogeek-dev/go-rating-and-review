@@ -1,0 +1,117 @@
+<title> Product Detail </title>
+{{ template "templates/layouts/header.html" .}}
+	
+    <div class="page-wrapper">
+    
+
+      <div class="box-wrapper">
+
+        <div class="flex product-list-row product-detail-row">
+            {{ range .product }}
+            <div class="pl-detail-left"> 
+              <img src="{{ .Imagepath }}"> 
+              <div class="flex pls-thumb">
+                  <a href="javascript:void(0)"><img src="assets/img/product-sm1.png"></a>
+                  <a href="javascript:void(0)"><img src="assets/img/product-sm2.png"></a>
+                  <a href="javascript:void(0)"><img src="assets/img/product-sm3.png"></a>
+                  <a href="javascript:void(0)"><img src="assets/img/product-sm4.png"></a>
+                  <a href="javascript:void(0)"><img src="assets/img/product-sm5.png"></a>
+              </div>
+            </div>
+            <div class="pl-content">
+                <div class="flex pld-top">
+                    <div class="plst-lft">
+                        <h3>{{ .Title }}</h3>
+                        <div class="flex rev-row">
+                      {{ range .Overallrating}} <input type="hidden" value="{{ . }}">  <i class="fas fa-star active"></i>{{end}}
+                        {{range .Remain}} <input type="hidden" value="{{.}}"> <i class="fas fa-star"></i>{{end}}
+                        <p>({{ .Reviewcount }} Reviews)</p>
+                        </div>
+                        <h2>₹{{ .Price }}</h2>
+                    </div>
+                    
+                </div>
+                <form action="/addorders?id={{ .Randomid }}" method="POST">
+                <div class="flex qty">
+                    <p>Qty:</p>
+                    <div class="flex qty-row">
+
+
+                     <div class="container" style="padding-right:5px;padding-left:5px">
+
+                        <div class="button-container" >
+		                    <button class="cart-qty-minus" type="button" value="-">-</button>
+                            <input type="text" name="qty" class="qty" maxlength="12" value="1"  style="width: 30px;text-align: center;margin:0px;background-color: #F5F5F5;" />
+		
+                            <button class="cart-qty-plus" type="button" value="+">+</button>
+                        </div>
+                        </div>
+
+
+                        {{/* <button class="qty-minus" type="button" value="-">-</button>
+                        <input type="text" name="qty" class="qty" maxlength="12" value="0" class="input-text qty" />
+                        <button class="qty-plus" type="button" value="+">+</button> */}}
+                    </div>
+                </div>
+
+                <div class="flex pd-btns">
+                {{if eq .Value 0}}
+                    <button type="submit">Buy Now</button>
+                   {{end}}
+                </div>
+                </form>
+                <div class="pd-desc">
+                    <h4>Description</h4>
+                    <p>{{ .Description }}</p>
+                    {{/* <a href="javascript:void(0)">Show more</a> */}}
+                </div>
+                
+        {{end}}
+                <div class="review-wrap">
+                    <h3>Reviews</h3>
+                    <div class="review-row">
+                        {{ range .review }}
+                        <div class="rr-top flex">
+                            <div class="rr-img"> <img src="assets/img/profile-img1.png"> </div>
+                            
+                            <div class="rr-pro-cint">
+                            
+                                <h4>{{ .Name }}</h4>
+                                <p>{{ .Location }}</p>
+                                
+                            </div>
+                            
+                        
+                            <div id="content" class="flex rev-row">              
+                                {{/* <div id="container">
+                                    <p>Sanjai</p>
+                                    </div> */}}
+                               {{/* <input type="text" id="selectmenu" value="{{ .Rating }}"> */}}
+                               {{range .Rat}}
+                                    <li><input type="hidden" value="{{ . }}"><i class="fas fa-star active"></i></li>
+                                     {{end}}{{range .Rem }} <input type="hidden" value="{{ . }}"> <i class="fas fa-star"></i>{{end}}
+                              
+                             
+                            </div>
+                            
+                        </div>
+                        <div class="rr-content">
+                        
+                            <p>{{ .Review }}</p>
+                            
+                        </div>
+                    {{end}}
+                   
+                            
+                    {{/* <div class="more-view"> <a href="javascript:Void(0)">Read more</a> </div> */}}
+                </div>
+                
+            </div>
+        </div>
+        <!-- row -->
+
+      </div>
+      
+    </div>
+{{ template "templates/layouts/footer.html" .}}
+ 
